@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARASAKA | NEURAL LINK</title>
+    <style>
+        :root { --red: #ff003c; --bg: #050505; }
+        body { background: var(--bg); color: var(--red); font-family: 'Courier New', monospace; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+        .deck { border: 2px solid var(--red); padding: 30px; width: 85%; max-width: 400px; box-shadow: 0 0 20px #ff003c55; position: relative; }
+        .deck::before { content: "SECURITY ENCRYPTED"; position: absolute; top: -10px; left: 10px; background: var(--bg); padding: 0 5px; font-size: 10px; }
+        h1 { text-align: center; letter-spacing: 5px; border-bottom: 1px solid var(--red); padding-bottom: 10px; margin-bottom: 30px; font-size: 1.2rem; }
+        .btn { background: transparent; border: 1px solid var(--red); color: var(--red); width: 100%; padding: 20px; margin: 10px 0; font-weight: bold; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
+        .btn:active { background: var(--red); color: black; box-shadow: 0 0 30px var(--red); }
+        .status { font-size: 8px; text-align: center; margin-top: 20px; opacity: 0.5; }
+    </style>
+</head>
+<body>
+    <div class="deck">
+        <h1 class="glitch">ARASAKA DECK</h1>
+        <button class="btn" onclick="send('optimize')">Execute Optimization</button>
+        <button class="btn" onclick="send('matrix')">Net Breach</button>
+        <div class="status">CONNECTED_TO_SATELLITE_LINK_0.92</div>
+    </div>
+
+    <script>
+        async function send(command) {
+            const user = "TON_PSEUDO";
+            const repo = "ARASAKA_DECK";
+            const token = "TON_TOKEN_GITHUB"; // A REMPLACER
+            const url = `https://api.github.com/repos/${user}/${repo}/contents/status.json`;
+
+            // Récupération du SHA
+            const res = await fetch(url);
+            const data = await res.json();
+
+            // Envoi de la commande
+            await fetch(url, {
+                method: "PUT",
+                headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    message: "Update Command",
+                    content: btoa(JSON.stringify({ "command": command })),
+                    sha: data.sha
+                })
+            });
+            alert("COMMANDE ENVOYEE : " + command);
+        }
+    </script>
+</body>
+</html>
